@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+    <title >图片列表</title>
+
+    <!--全局通用框架样式 begin-->
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <script type="text/javascript" language="JavaScript" src="/js/jquery-1.6.2.min.js"></script>
+</head>
+<body style="font-size: 12px;">
+<div style="width:100%;height:10px;background:#eeeeee;font-size: 16px;" ></div>
+<div id="content" style="width:1040px;">
+
+    <div style="width:150px;float:left;font-size: 12px;background:#eeeeee;" th:include="common/leftmenu :: leftmenu"></div>
+
+    <div style="width:790px;float:left;">
+        <!--main begin-->
+
+
+        <div th:each="image_one:${image_list}" style="border-bottom-style:solid;  border-bottom-width: 1px; width:990px;height:60px;font-size:16px;overflow: hidden;border-bottom-color: #eeeeee;">
+            <div style="float:left;width:20px;overflow: hidden;" th:text="${image_one.image_id}"></div>
+            <div style="float:left;width:100px;height:60px;overflow: hidden;" th:text="${image_one.title}"></div>
+            <!--<div style="float:left;width:300px;overflow: hidden;" th:text="${image_one.image_sn}"></div>-->
+
+            <div style="float:left;width:60px;overflow: hidden;" th:text="${image_one.image_type}"></div>
+            <div style="float:left;width:100px;overflow: hidden;" ><img th:src="@{${image_one.image_url}}" style="height:60px;" /></div>
+            <div style="float:left;width:160px;overflow: hidden;" >
+                <a th:href="@{/image/imageedit/(imageid=${image_one.image_id})}">edit </a> |
+                <a th:href="@{/image/imagedown/(imageid=${image_one.image_id})}">download </a> |
+                <a th:href="@{/image/imageview/(imageid=${image_one.image_id})}">view</a> </div>
+        </div>
+
+
+        <!--page info begin-->
+        <div align="center">
+            <a class="allpage"><b th:text="'共 '+ ${pageInfo.getPages()}+ ' 页'"></b></a>
+            <a  th:href="@{/image/imagelist/(currentPage=${pageInfo.getNavigateFirstPage()},category_id=${category_id})}"  >首页</a>
+            <a th:if="${pageInfo.isHasPreviousPage()} == true" th:href="@{/image/imagelist/(currentPage=${pageInfo.getPrePage()},category_id=${category_id})}"  >上一页</a> |
+
+            <!--?currentPage=' + ${i}-->
+            <!--<a th:href="@{'/image/imagelist/?currentPage=' + ${i}}"  th:each="i :${#numbers.sequence(pageInfo.getNavigateFirstPage(), pageInfo.getNavigateLastPage())}" th:text="  ${i}"   th:class="${pageInfo.getPageNum() == i}? 'page-item active' :' page-item' "></a> |-->
+            <span th:each="i,iterStat :${#numbers.sequence(pageInfo.getNavigateFirstPage(), pageInfo.getNavigateLastPage())}" ><a th:href="@{/image/imagelist/(currentPage=${i},category_id=${category_id})}" th:text="  ${i} "> </a> <span th:text=" ${iterStat.last}? '':'|' ">|</span> </span>
+ |
+            <a th:if="${pageInfo.isHasNextPage()} == true" th:href="@{/image/imagelist/(currentPage=${pageInfo.getNextPage()},category_id=${category_id})}" >下一页</a>
+            <a th:href="@{/image/imagelist/(currentPage=${pageInfo.getNavigateLastPage()},category_id=${category_id})}" >尾页</a>
+        </div>
+        <!--page info end-->
+        <!--main   end-->
+    </div>
+</div>
+
+</body>
+</html>
