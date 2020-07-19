@@ -67,5 +67,4 @@ public class ImageDownUtil {
             return ResponseEntity.notFound().build();
         }
     }
-
 }

@@ -4,7 +4,6 @@ import com.imagemodify.demo.constant.Constant;
 import java.io.File;
 
 public class ImageDirUtil {
-
     //得到图片本地文件的访问路径
     public static String getImageLocalPath(long image_id,String image_sn,String image_type,String size_type) {
         String imageBaseDir = Constant.IMAGES_ORIG_DIR;

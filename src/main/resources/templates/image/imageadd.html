@@ -1,9 +1,7 @@
 <html lang="en">
 <head >
     <title >图片上传</title>
-
     <!--全局通用框架样式 begin-->
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta charset="utf-8" />
     <meta name="description" content="" />
@@ -15,7 +13,6 @@
 <div id="content" style="width:800px;">
     <div style="width:150px;float:left;font-size: 12px;background:#eeeeee;" th:include="common/leftmenu :: leftmenu"></div>
     <div style="width:550px;float:left;">
-
 <style>
     .upload_box{width:800px; margin:1em;}
     .upload_main{border-width:1px 1px 2px; border-style:solid; border-color:#ccc #ccc #ddd; background-color:#fbfbfb;}
@@ -34,20 +31,15 @@
 
 <div id="main">
     <h3 class="mTle">图片上传</h3>
-
     <form method="post" action="/image/imageadd/" enctype="multipart/form-data" id="uploadForm" class="form-horizontal" style="margin-top:30px;">
-
         <div class="control-group">
             <label class="control-label" for="title">主标题</label>
             <div class="controls">
                 <input type="text" id="title" placeholder="主标题" name="title" value="" style="width:400px;">
             </div>
         </div>
-
-
         <div class="control-group" id="div_pic">
             <label class="control-label" for="img_file_src">图片文件</label>
-
             <div class="demo" style="margin-left: 0px;">
                 <!--<form id="uploadForm" action="upload.php" method="post" enctype="multipart/form-data">-->
                 <div class="upload_box" style="margin-left: 0px;">
@@ -65,8 +57,6 @@
                 </div>
                 <!--</form>-->
             </div>
-
-
         </div>
         <div class="control-group" id="div_video" style="display:none;">
             <div class="controls">
@@ -84,19 +74,12 @@
                 </button>
             </div>
         </div>
-
     </form>
 </div>
-
-
     </div>
 </div>
 
-
-
 <script>
-
-
     var params = {
         fileInput: $("#fileImage").get(0),
         dragDrop: $("#fileDragArea").get(0),
@@ -171,13 +154,8 @@
             eleProgress.show().html(percent);
         },
         onSuccess: function(file, response) {
-            //alert("success:"+response);
-
             var data = JSON.parse(response);
-            //alert("status:"+data.status);
-
             var tip = "";
-
             if (data.status == '0') {
                 tip = "<p>"+file.name+"上传成功，图片地址：" + data.data.imageurl + "</p>";
             } else {
@@ -200,7 +178,6 @@
         }
     };
 
-
     var ZXXFILE = {
         fileInput: null,				//html file控件
         dragDrop: null,					//拖拽敏感区域
@@ -218,9 +195,7 @@
         onSuccess: function() {},		//文件上传成功时
         onFailure: function() {},		//文件上传失败时,
         onComplete: function() {},		//文件全部上传完毕时
-
         /* 开发参数和内置方法分界线 */
-
         //文件拖放
         funDragHover: function(e) {
             e.stopPropagation();
@@ -274,17 +249,13 @@
                 return;
             }
 
-
             if (document.getElementById('title').value == "") {
                 alert("图片标题不可为空");
                 document.getElementById('title').focus();
                 return false;
             }
 
-
             for (var i = 0, file; file = this.fileFilter[i]; i++) {
-                //alert("the:"+i);
-
                 (function(file) {
                     var xhr = new XMLHttpRequest();
                     if (xhr.upload) {
@@ -292,7 +263,6 @@
                         xhr.upload.addEventListener("progress", function(e) {
                             self.onProgress(file, e.loaded, e.total);
                         }, false);
-
                         // 文件上传成功或是失败
                         xhr.onreadystatechange = function(e) {
                             if (xhr.readyState == 4) {
@@ -304,45 +274,34 @@
                                         self.onComplete();
                                     }
                                 } else {
-                                    //alert("fail,not 200");
                                     self.onFailure(file, xhr.responseText);
                                 }
                             }
                             else {
-                                //alert("fail,not 4");
                             }
                         };
 
                         // 开始上传
-
-                        //var go_url = "/image/imageadded/?filename="+file.name+"&title="+document.getElementById('title').value;
                         var go_url = "/image/imageadded/";
                         xhr.open("POST", go_url, true);
 
                         var data = new FormData();
                         data.append("filename", file.name);
                         data.append("title", document.getElementById('title').value);
-                        //data.append("category_id", document.getElementById('category_id').value);
                         data.append("file", file);
                         xhr.send(data);
-
-
                     }
                 })(file);
-
             }
-
         },
 
         init: function() {
             var self = this;
-
             if (this.dragDrop) {
                 this.dragDrop.addEventListener("dragover", function(e) { self.funDragHover(e); }, false);
                 this.dragDrop.addEventListener("dragleave", function(e) { self.funDragHover(e); }, false);
                 this.dragDrop.addEventListener("drop", function(e) { self.funGetFiles(e); }, false);
             }
-
             //文件选择控件选择
             if (this.fileInput) {
                 this.fileInput.addEventListener("change", function(e) { self.funGetFiles(e); }, false);
@@ -355,13 +314,8 @@
         }
     };
 
-
     ZXXFILE = $.extend(ZXXFILE, params);
     ZXXFILE.init();
-
 </script>
-
-
-
 </body>
 </html>

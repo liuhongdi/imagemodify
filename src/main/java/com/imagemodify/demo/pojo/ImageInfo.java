@@ -65,16 +65,6 @@ public class ImageInfo {
         this.staff_id = staff_id;
     }
 
-    /*
-    private int category_id;
-    public int getCategory_id() {
-        return category_id;
-    }
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
-    }
-    */
-
     //extension
     private String image_url;
     public String getImage_url() {
@@ -82,14 +72,6 @@ public class ImageInfo {
     }
     public void setImage_url(String image_url) {
         this.image_url = image_url;
-    }
-
-    private String category_name;
-    public String getCategory_name() {
-        return category_name;
-    }
-    public void setCategory_name(String category_name) {
-        this.category_name = category_name;
     }
 
 }
